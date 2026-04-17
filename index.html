@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lattente — El Ritual de lo Intencional</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+:root {
+  --cream: #E8DECA;
+  --red: #8C1D17;
+  --brown: #6A3C11;
+  --sage: #70805B;
+  --dark: #1C0A05;
+  --dark-mid: #2D1408;
+  --off-white: #F5EFE6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 3.5rem;
+  background: rgba(245,239,230,0.93);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(140,29,23,0.1);
+}
+.nav-logo {
+  font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900;
+  color: var(--red); letter-spacing: -0.03em; text-decoration: none;
+}
+nav ul { display: flex; gap: 2.75rem; list-style: none; align-items: center; }
+nav a {
+  font-family: 'Lora', serif; font-size: 0.88rem; font-weight: 500; font-style: italic;
+  color: var(--dark); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s;
+}
+nav a:hover { color: var(--red); }
+.nav-btn {
+  font-style: normal !important; font-size: 0.78rem !important; font-weight: 600 !important;
+  letter-spacing: 0.1em !important; text-transform: uppercase;
+  background: var(--red) !important; color: #fff !important;
+  padding: 0.6rem 1.5rem; border-radius: 3rem;
+}
+.nav-btn:hover { background: var(--dark) !important; color: #fff !important; }
+.nav-icons { display: flex; align-items: center; gap: 1.25rem; }
+.nav-icon-link { font-size: 0.78rem; font-style: italic; color: rgba(28,10,5,0.38) !important; }
+
+/* HERO */
+.hero {
+  display: grid; grid-template-columns: 52% 48%;
+  align-items: center; padding: 3.5rem 3.5rem 3rem;
+  background: var(--off-white); gap: 0;
+}
+.hero-text { padding-right: 2.5rem; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: 'Lora', serif; font-size: 0.78rem; font-style: italic; color: var(--brown);
+  border: 1px solid rgba(106,60,17,0.28); padding: 0.38rem 1.1rem;
+  border-radius: 3rem; margin-bottom: 1.5rem;
+}
+h1 {
+  font-family: 'Fraunces', serif; font-size: clamp(3.5rem,5.8vw,5.2rem);
+  font-weight: 900; line-height: 0.93; letter-spacing: -0.035em;
+  color: var(--red); margin-bottom: 0.15rem;
+}
+.hero-italic {
+  font-family: 'Fraunces', serif; font-size: clamp(3.5rem,5.8vw,5.2rem);
+  font-weight: 300; font-style: italic; line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--brown); display: block; margin-bottom: 1.75rem;
+}
+.hero-sub {
+  font-family: 'Lora', serif; font-size: 0.97rem; font-style: italic; line-height: 1.78;
+  color: rgba(28,10,5,0.48); max-width: 380px; margin-bottom: 2.25rem;
+}
+.hero-actions { display: flex; align-items: center; gap: 1.5rem; }
+.btn-fill {
+  display: inline-block; background: var(--red); color: white;
+  padding: 0.9rem 2.25rem; border-radius: 3rem;
+  font-family: 'Lora', serif; font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  transition: all 0.25s; border: none; cursor: pointer;
+}
+.btn-fill:hover { background: var(--dark); transform: translateY(-2px); }
+.btn-outline {
+  display: inline-block; color: var(--brown); font-family: 'Lora', serif;
+  font-size: 0.9rem; font-style: italic; font-weight: 500; text-decoration: none;
+  border-bottom: 1px solid rgba(106,60,17,0.38); padding-bottom: 2px; transition: all 0.2s;
+}
+.btn-outline:hover { color: var(--red); border-color: var(--red); }
+
+/* Hero visual — fixed pixel positions, never shifts with viewport */
+.hero-visual { position: relative; height: 460px; width: 100%; }
+.hero-circle {
+  position: absolute; width: 340px; height: 340px; background: var(--cream);
+  border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+.photo-card {
+  position: absolute; border-radius: 1.2rem; overflow: hidden;
+  box-shadow: 0 20px 56px rgba(28,10,5,0.2);
+}
+.photo-card.main {
+  width: 230px; height: 305px; top: 48px; left: 140px;
+  background: var(--brown); transform: rotate(2deg); z-index: 2;
+}
+.photo-card.secondary {
+  width: 178px; height: 218px; top: 195px; left: 10px;
+  background: var(--sage); transform: rotate(-3.5deg); z-index: 1;
+}
+.photo-inner {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Lora', serif; font-size: 0.6rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.2);
+}
+.hero-badge {
+  position: absolute; bottom: 80px; right: 40px; background: var(--cream);
+  color: var(--brown); font-family: 'Lora', serif; font-size: 0.68rem; font-style: italic;
+  padding: 0.5rem 1.1rem; border-radius: 3rem; border: 1px solid rgba(106,60,17,0.28);
+  transform: rotate(-5deg); z-index: 3; white-space: nowrap;
+}
+
+/* MARQUEE */
+.marquee-wrap { background: var(--red); padding: 0.85rem 0; overflow: hidden; }
+.marquee-track {
+  display: inline-flex; white-space: nowrap;
+  animation: scroll 24s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-track span {
+  font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem;
+  color: rgba(245,239,230,0.85); padding: 0 2rem;
+}
+.marquee-track .sep { color: rgba(245,239,230,0.3); font-style: normal; padding: 0; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* SECTION COMMONS */
+.section-label {
+  font-family: 'Lora', serif; font-size: 0.7rem; font-style: italic;
+  color: rgba(28,10,5,0.36); margin-bottom: 0.35rem; letter-spacing: 0.06em;
+}
+.section-label.on-dark { color: rgba(232,222,202,0.32); }
+.section-heading {
+  font-family: 'Fraunces', serif; font-size: clamp(2.2rem,3.2vw,2.9rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;
+}
+.on-cream { color: var(--brown); }
+.on-dark-color { color: var(--cream); }
+
+/* NOSOTROS */
+.nosotros { background: var(--dark); padding: 5.5rem 3.5rem; }
+.nosotros-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3rem; border-bottom: 1px solid rgba(232,222,202,0.07); padding-bottom: 2rem;
+}
+.nosotros-philosophy {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.93rem;
+  color: rgba(232,222,202,0.28); max-width: 300px; line-height: 1.7; text-align: right;
+}
+.nosotros-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.nos-card {
+  background: var(--dark-mid); padding: 2.25rem 2rem;
+  position: relative; transition: background 0.3s;
+}
+.nos-card:hover { background: #361a0a; }
+.nos-num {
+  font-family: 'Fraunces', serif; font-size: 4.5rem; font-weight: 900;
+  color: rgba(255,255,255,0.04); position: absolute; top: 0.75rem; right: 1.5rem;
+  line-height: 1; pointer-events: none;
+}
+.nos-photo-placeholder {
+  width: 100%; height: 170px; border-radius: 0.6rem; margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.65rem;
+  letter-spacing: 0.12em; color: rgba(255,255,255,0.12);
+}
+.nos-card:nth-child(1) .nos-photo-placeholder { background: linear-gradient(135deg,#3d1a08,#1C0A05); }
+.nos-card:nth-child(2) .nos-photo-placeholder { background: linear-gradient(135deg,#2a3520,#1C0A05); }
+.nos-card:nth-child(3) .nos-photo-placeholder { background: linear-gradient(135deg,#1a2820,#1C0A05); }
+.nos-title {
+  font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700;
+  color: var(--cream); margin-bottom: 0.75rem; margin-top: 1.75rem;
+}
+.nos-body {
+  font-family: 'Lora', serif; font-size: 0.85rem; line-height: 1.8;
+  color: rgba(232,222,202,0.4);
+}
+
+/* SERVICIOS */
+.servicios { padding: 5.5rem 3.5rem; background: var(--cream); }
+.servicios-header {
+  display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem;
+}
+.servicios-header-right {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.92rem;
+  color: rgba(28,10,5,0.3); max-width: 240px; text-align: right; line-height: 1.65;
+}
+.svc-feature-img {
+  width: 100%; height: 240px; border-radius: 1rem; margin-bottom: 2rem;
+  overflow: hidden; position: relative; display: flex; align-items: flex-end;
+  background: linear-gradient(120deg,#3d1a08 0%,var(--dark) 60%);
+}
+.svc-feature-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right,rgba(28,10,5,0.72) 0%,rgba(28,10,5,0.08) 65%);
+}
+.svc-feature-text { position: relative; z-index: 1; padding: 2rem 2.5rem; }
+.svc-feature-label {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.75rem;
+  color: rgba(232,222,202,0.45); margin-bottom: 0.4rem;
+}
+.svc-feature-headline {
+  font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700;
+  color: var(--cream); line-height: 1.25;
+}
+.servicios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.svc-card {
+  background: var(--off-white); border: 1px solid rgba(106,60,17,0.1);
+  border-radius: 1rem; padding: 2rem; display: flex; flex-direction: column;
+  transition: all 0.3s; cursor: pointer;
+}
+.svc-card:hover {
+  border-color: var(--red); transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(140,29,23,0.1);
+}
+.svc-number {
+  font-family: 'Fraunces', serif; font-size: 0.75rem; font-weight: 900;
+  color: rgba(140,29,23,0.16); margin-bottom: 1.25rem;
+}
+.svc-title {
+  font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700;
+  color: var(--red); margin-bottom: 0.3rem;
+}
+.svc-sub {
+  font-family: 'Lora', serif; font-size: 0.75rem; font-style: italic; color: var(--brown);
+  margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid rgba(106,60,17,0.1);
+}
+.svc-body {
+  font-family: 'Lora', serif; font-size: 0.85rem; line-height: 1.8;
+  color: rgba(28,10,5,0.5); flex: 1; margin-bottom: 1.5rem;
+}
+.svc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.svc-tag {
+  font-family: 'Lora', serif; font-size: 0.63rem; font-style: italic;
+  padding: 0.28rem 0.75rem; border-radius: 3rem;
+  border: 1px solid rgba(106,60,17,0.2); color: var(--brown);
+}
+.servicios-cta { text-align: center; margin-top: 3rem; }
+
+/* PRODUCTOS */
+.productos { background: var(--dark); padding: 5.5rem 3.5rem; }
+.productos-header {
+  display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;
+}
+.btn-outline-cream {
+  font-family: 'Lora', serif; font-size: 0.88rem; font-style: italic;
+  color: rgba(232,222,202,0.42); text-decoration: none;
+  border-bottom: 1px solid rgba(232,222,202,0.18); padding-bottom: 2px; transition: all 0.2s;
+}
+.btn-outline-cream:hover { color: var(--cream); border-color: var(--cream); }
+.prod-tabs {
+  display: flex; gap: 0; margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(232,222,202,0.08);
+}
+.prod-tab {
+  font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic;
+  color: rgba(232,222,202,0.26); padding: 0.5rem 1.4rem 0.8rem;
+  cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none;
+}
+.prod-tab.active { color: var(--cream); border-bottom-color: var(--red); }
+.prod-tab:hover { color: rgba(232,222,202,0.62); }
+.prod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; }
+.prod-card {
+  background: var(--dark-mid); border-radius: 0.75rem; overflow: hidden;
+  transition: all 0.3s; border: 1px solid rgba(232,222,202,0.04);
+}
+.prod-card:hover { transform: translateY(-5px); border-color: rgba(140,29,23,0.4); }
+.prod-img {
+  width: 100%; height: 190px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Lora', serif; font-size: 0.58rem; font-style: italic;
+  letter-spacing: 0.15em; color: rgba(255,255,255,0.1);
+}
+.prod-card:nth-child(1) .prod-img { background: linear-gradient(135deg,#2a1205,#1C0A05); }
+.prod-card:nth-child(2) .prod-img { background: linear-gradient(135deg,#3d1a08,#2a1205); }
+.prod-card:nth-child(3) .prod-img { background: linear-gradient(135deg,#243020,#1C0A05); }
+.prod-card:nth-child(4) .prod-img { background: linear-gradient(135deg,#2a1205,#3d2010); }
+.prod-info { padding: 1.1rem 1.25rem 1.25rem; }
+.prod-cat {
+  font-family: 'Lora', serif; font-size: 0.62rem; font-style: italic;
+  color: rgba(232,222,202,0.22); margin-bottom: 0.3rem;
+}
+.prod-name {
+  font-family: 'Fraunces', serif; font-size: 0.92rem; font-weight: 700;
+  color: var(--cream); margin-bottom: 0.25rem;
+}
+.prod-price {
+  font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700;
+  color: rgba(232,222,202,0.48); margin-bottom: 1rem;
+}
+.btn-add {
+  width: 100%; background: var(--red); color: white; border: none;
+  padding: 0.65rem; border-radius: 0.5rem; font-family: 'Lora', serif;
+  font-size: 0.72rem; font-style: italic; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-add:hover { background: #a82219; }
+
+/* TUTORIALES */
+.tutoriales { padding: 5.5rem 3.5rem; background: var(--off-white); }
+.tuto-header {
+  display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;
+}
+.tuto-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; align-items: start; }
+.tuto-featured {
+  background: var(--dark); border-radius: 1rem; overflow: hidden;
+  cursor: pointer; transition: transform 0.3s;
+}
+.tuto-featured:hover { transform: translateY(-4px); }
+.tuto-thumb {
+  width: 100%; height: 295px;
+  background: linear-gradient(160deg,#3d1a08 0%,var(--dark) 100%);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.tuto-thumb-label {
+  position: absolute; top: 1rem; left: 1rem; font-family: 'Lora', serif;
+  font-size: 0.62rem; font-style: italic; color: rgba(232,222,202,0.42);
+  background: rgba(28,10,5,0.5); padding: 0.3rem 0.8rem; border-radius: 3rem;
+}
+.play-btn {
+  width: 62px; height: 62px; background: rgba(232,222,202,0.1); border-radius: 50%;
+  border: 1.5px solid rgba(232,222,202,0.2); display: flex; align-items: center;
+  justify-content: center; transition: all 0.2s;
+}
+.tuto-featured:hover .play-btn { background: var(--red); border-color: var(--red); }
+.play-arrow {
+  width: 0; height: 0; border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; border-left: 17px solid rgba(232,222,202,0.78);
+  margin-left: 4px;
+}
+.tuto-info { padding: 1.5rem 1.75rem; }
+.tuto-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.6rem; }
+.tuto-cat {
+  font-family: 'Lora', serif; font-size: 0.62rem; font-style: italic;
+  color: var(--red); background: rgba(140,29,23,0.12);
+  padding: 0.25rem 0.7rem; border-radius: 3rem;
+}
+.tuto-date-text {
+  font-family: 'Lora', serif; font-size: 0.65rem; font-style: italic;
+  color: rgba(232,222,202,0.22);
+}
+.tuto-title {
+  font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700;
+  color: var(--cream); line-height: 1.4;
+}
+.tuto-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.tuto-item {
+  display: grid; grid-template-columns: 88px 1fr; background: var(--cream);
+  border-radius: 0.75rem; overflow: hidden; border: 1px solid rgba(106,60,17,0.1);
+  cursor: pointer; transition: all 0.2s; min-height: 82px;
+}
+.tuto-item:hover { border-color: var(--red); }
+.tuto-item-thumb {
+  background: var(--dark); display: flex; align-items: center; justify-content: center;
+}
+.tuto-item-thumb .play-btn { width: 30px; height: 30px; }
+.tuto-item-thumb .play-arrow {
+  border-top-width: 6px; border-bottom-width: 6px; border-left-width: 10px; margin-left: 2px;
+}
+.tuto-item-info { padding: 0.75rem 1rem; display: flex; flex-direction: column; justify-content: center; }
+.tuto-item-date {
+  font-family: 'Lora', serif; font-size: 0.6rem; font-style: italic;
+  color: var(--brown); opacity: 0.52; margin-bottom: 0.3rem;
+}
+.tuto-item-title {
+  font-family: 'Lora', serif; font-size: 0.82rem; font-weight: 500;
+  color: var(--dark); line-height: 1.45;
+}
+.tuto-cta { text-align: center; margin-top: 2.5rem; }
+
+/* CONTACTO */
+.contacto { background: var(--dark); padding: 5.5rem 3.5rem; }
+.contacto-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+.contacto-quote {
+  font-family: 'Fraunces', serif; font-style: italic; font-size: 1.45rem;
+  line-height: 1.5; color: rgba(232,222,202,0.2); margin-top: 1.5rem;
+  padding-top: 1.5rem; border-top: 1px solid rgba(232,222,202,0.07);
+}
+.contacto-info { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.contact-detail { display: flex; align-items: center; gap: 1rem; }
+.contact-detail-label {
+  font-family: 'Lora', serif; font-size: 0.65rem; font-style: italic;
+  color: rgba(232,222,202,0.26); width: 80px;
+}
+.contact-detail-val {
+  font-family: 'Lora', serif; font-size: 0.88rem; color: rgba(232,222,202,0.52);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-label {
+  font-family: 'Lora', serif; font-size: 0.63rem; font-style: italic;
+  color: rgba(232,222,202,0.26);
+}
+.form-input {
+  background: rgba(232,222,202,0.05); border: 1px solid rgba(232,222,202,0.1);
+  border-radius: 0.6rem; padding: 0.8rem 1rem; color: var(--cream);
+  font-family: 'Lora', serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+}
+.form-input:focus { border-color: rgba(140,29,23,0.62); }
+.form-input::placeholder { color: rgba(232,222,202,0.15); }
+textarea.form-input { min-height: 110px; resize: vertical; margin-bottom: 1rem; }
+.btn-submit {
+  width: 100%; background: var(--red); color: white; border: none; padding: 1rem;
+  border-radius: 3rem; font-family: 'Lora', serif; font-size: 0.8rem; font-style: italic;
+  font-weight: 600; letter-spacing: 0.08em; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;
+}
+.btn-submit:hover { background: #a82219; }
+
+/* FOOTER */
+footer { background: #0d0402; padding: 4rem 3.5rem 2.5rem; }
+.footer-top {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(232,222,202,0.07); margin-bottom: 2rem;
+}
+.footer-logo {
+  font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900;
+  color: rgba(232,222,202,0.6); letter-spacing: -0.02em; margin-bottom: 0.75rem; display: block;
+}
+.footer-tagline {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.92rem;
+  color: rgba(232,222,202,0.42); line-height: 1.65; max-width: 220px;
+}
+.footer-nav-col h4 {
+  font-family: 'Lora', serif; font-size: 0.68rem; font-style: italic; letter-spacing: 0.1em;
+  color: rgba(232,222,202,0.28); text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.footer-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.72rem; }
+.footer-nav-col a {
+  font-family: 'Lora', serif; font-size: 0.9rem; color: rgba(232,222,202,0.52);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-nav-col a:hover { color: var(--cream); }
+.footer-newsletter h4 {
+  font-family: 'Lora', serif; font-size: 0.68rem; font-style: italic; letter-spacing: 0.1em;
+  color: rgba(232,222,202,0.28); text-transform: uppercase; margin-bottom: 0.6rem;
+}
+.footer-newsletter-headline {
+  font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700;
+  color: rgba(232,222,202,0.65); margin-bottom: 0.35rem;
+}
+.footer-newsletter-sub {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.78rem;
+  color: rgba(232,222,202,0.3); margin-bottom: 1.1rem;
+}
+.newsletter-form { display: flex; gap: 0; }
+.newsletter-input {
+  flex: 1; background: rgba(232,222,202,0.07); border: 1px solid rgba(232,222,202,0.12);
+  border-right: none; border-radius: 3rem 0 0 3rem; padding: 0.7rem 1.2rem;
+  color: var(--cream); font-family: 'Lora', serif; font-size: 0.85rem; outline: none;
+}
+.newsletter-input::placeholder { color: rgba(232,222,202,0.2); }
+.newsletter-input:focus { background: rgba(232,222,202,0.1); }
+.newsletter-btn {
+  background: var(--red); color: white; border: none; border-radius: 0 3rem 3rem 0;
+  padding: 0.7rem 1.4rem; font-family: 'Lora', serif; font-size: 0.72rem; font-style: italic;
+  font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+}
+.newsletter-btn:hover { background: #a82219; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-copy {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.75rem;
+  color: rgba(232,222,202,0.3);
+}
+.footer-social { display: flex; gap: 1.5rem; }
+.footer-social a {
+  font-family: 'Lora', serif; font-style: italic; font-size: 0.85rem;
+  color: rgba(232,222,202,0.48); text-decoration: none; transition: color 0.2s;
+}
+.footer-social a:hover { color: var(--cream); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; }
+.d4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Lattente</a>
+  <ul>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#tutoriales">Tutoriales</a></li>
+    <li><a href="#contacto" class="nav-btn">Contacto</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#" class="nav-icon-link">IG</a>
+    <a href="#" class="nav-icon-link">YT</a>
+    <a href="#" class="nav-icon-link">WA</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">✦ Origen Puro · Café de Especialidad</div>
+    <h1>Pequeños<br>Detalles,</h1>
+    <span class="hero-italic">Grandes Momentos</span>
+    <p class="hero-sub">Accesorios, talleres y contenido para vivir el café de especialidad como se merece. Desde la semilla hasta la taza.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-fill">Conversemos</a>
+      <a href="#productos" class="btn-outline">Ver productos →</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-circle"></div>
+    <div class="photo-card main"><div class="photo-inner">foto principal</div></div>
+    <div class="photo-card secondary"><div class="photo-inner">foto v60</div></div>
+    <div class="hero-badge">Certificada con pasión</div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>El Ritual de lo Intencional</span><span class="sep"> · </span>
+    <span>Pequeños detalles, grandes momentos</span><span class="sep"> · </span>
+    <span>Origen Puro</span><span class="sep"> · </span>
+    <span>Café de Especialidad</span><span class="sep"> · </span>
+    <span>Desde la semilla hasta la taza</span><span class="sep"> · </span>
+    <span>Tostado con propósito</span><span class="sep"> · </span>
+    <span>El Ritual de lo Intencional</span><span class="sep"> · </span>
+    <span>Pequeños detalles, grandes momentos</span><span class="sep"> · </span>
+    <span>Origen Puro</span><span class="sep"> · </span>
+    <span>Café de Especialidad</span><span class="sep"> · </span>
+    <span>Desde la semilla hasta la taza</span><span class="sep"> · </span>
+    <span>Tostado con propósito</span><span class="sep"> · </span>
+  </div>
+</div>
+
+<section class="nosotros" id="nosotros">
+  <div class="nosotros-top">
+    <div>
+      <p class="section-label on-dark">Nuestra filosofía</p>
+      <h2 class="section-heading on-dark-color">El Ritual de lo<br>Intencional.</h2>
+    </div>
+    <p class="nosotros-philosophy">"Una Marca creada para elevar la experiencia cafetera y conectar con el café desde el estilo, el conocimiento y la sensibilidad."</p>
+  </div>
+  <div class="nosotros-grid">
+    <div class="nos-card reveal">
+      <div class="nos-num">01</div>
+      <div class="nos-photo-placeholder">foto autenticidad</div>
+      <h3 class="nos-title">La Autenticidad</h3>
+      <p class="nos-body">Sabemos jugar con las tendencias pero nunca a costa de lo que somos. Todo lo que compartimos, recomendamos u ofrecemos pasa primero por nuestra experiencia real. El formato cambia, la esencia no.</p>
+    </div>
+    <div class="nos-card reveal d1">
+      <div class="nos-num">02</div>
+      <div class="nos-photo-placeholder">foto técnica</div>
+      <h3 class="nos-title">La Técnica</h3>
+      <p class="nos-body">Ocho años en el mundo del café: tostando, seleccionando origen, detrás de la barra, optimizando operaciones y construyendo marcas. No hablamos de café desde afuera. Lo conocemos desde la semilla hasta la taza.</p>
+    </div>
+    <div class="nos-card reveal d2">
+      <div class="nos-num">03</div>
+      <div class="nos-photo-placeholder">foto comunidad</div>
+      <h3 class="nos-title">La Comunidad</h3>
+      <p class="nos-body">El café de especialidad no es solo una bebida, es un punto de encuentro. Hemos trabajado con las personas, las marcas y los espacios que construyen esta cultura. Lattente nació para ser parte de eso, no para venderle desde lejos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="servicios" id="servicios">
+  <div class="servicios-header">
+    <div>
+      <p class="section-label">Qué ofrecemos</p>
+      <h2 class="section-heading on-cream">Servicios</h2>
+    </div>
+    <p class="servicios-header-right">Elevando la cultura cafetera a través de la precisión técnica y la narrativa visual.</p>
+  </div>
+  <div class="svc-feature-img">
+    <div class="svc-feature-overlay"></div>
+    <div class="svc-feature-text">
+      <p class="svc-feature-label">En acción · Taller Cold Brew, Colombia 2026</p>
+      <p class="svc-feature-headline">De la consultoría al contenido,<br>todo empieza con el grano.</p>
+    </div>
+  </div>
+  <div class="servicios-grid">
+    <div class="svc-card reveal">
+      <div class="svc-number">— 01</div>
+      <h3 class="svc-title">Estrategia Digital</h3>
+      <p class="svc-sub">UGC, videos & copywriting de autor</p>
+      <p class="svc-body">No solo creamos imágenes, construimos universos sensoriales. Nuestra estrategia de contenido se basa en la honestidad del producto y la belleza del proceso.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Video cinematic</span>
+        <span class="svc-tag">Storytelling</span>
+        <span class="svc-tag">Identidad digital</span>
+      </div>
+    </div>
+    <div class="svc-card reveal d1">
+      <div class="svc-number">— 02</div>
+      <h3 class="svc-title">Consultoría Cafetera</h3>
+      <p class="svc-sub">Diseño de barra, menús & capacitación</p>
+      <p class="svc-body">La eficiencia se encuentra con la excelencia. Auditamos flujos de trabajo en barra, diseñamos cartas estacionales y formamos equipos con precisión técnica.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Auditoría de barra</span>
+        <span class="svc-tag">Menús estacionales</span>
+        <span class="svc-tag">Capacitación</span>
+      </div>
+    </div>
+    <div class="svc-card reveal d2">
+      <div class="svc-number">— 03</div>
+      <h3 class="svc-title">Experiencias & Eventos</h3>
+      <p class="svc-sub">Talleres de Cold Brew & conferencias</p>
+      <p class="svc-body">Creamos puentes entre el experto y el entusiasta. Experiencias inmersivas diseñadas para educar el paladar. Disponibles para grupos privados y eventos corporativos.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">Cold Brew</span>
+        <span class="svc-tag">Cata sensorial</span>
+        <span class="svc-tag">Corporativo</span>
+      </div>
+    </div>
+  </div>
+  <div class="servicios-cta">
+    <a href="#contacto" class="btn-fill">Cotizar un servicio</a>
+  </div>
+</section>
+
+<section class="productos" id="productos">
+  <div class="productos-header">
+    <div>
+      <p class="section-label on-dark">El Rincón Cafetero</p>
+      <h2 class="section-heading on-dark-color">Productos</h2>
+    </div>
+    <a href="/collections/all" class="btn-outline-cream">Ver todo →</a>
+  </div>
+  <div class="prod-tabs">
+    <button class="prod-tab active" onclick="setTab(this)">Todos</button>
+    <button class="prod-tab" onclick="setTab(this)">Pines</button>
+    <button class="prod-tab" onclick="setTab(this)">Llaveros</button>
+    <button class="prod-tab" onclick="setTab(this)">Camisas</button>
+    <button class="prod-tab" onclick="setTab(this)">Accesorios</button>
+  </div>
+  <div class="prod-grid">
+    <div class="prod-card reveal">
+      <div class="prod-img">imagen producto</div>
+      <div class="prod-info">
+        <p class="prod-cat">Pines</p>
+        <p class="prod-name">¡Estoy Bien!</p>
+        <p class="prod-price">$18.500</p>
+        <button class="btn-add">Añadir al carrito</button>
+      </div>
+    </div>
+    <div class="prod-card reveal d1">
+      <div class="prod-img">imagen producto</div>
+      <div class="prod-info">
+        <p class="prod-cat">Pines</p>
+        <p class="prod-name">Catpuccino</p>
+        <p class="prod-price">$18.500</p>
+        <button class="btn-add">Añadir al carrito</button>
+      </div>
+    </div>
+    <div class="prod-card reveal d2">
+      <div class="prod-img">imagen producto</div>
+      <div class="prod-info">
+        <p class="prod-cat">Llaveros</p>
+        <p class="prod-name">Gatito en Moka</p>
+        <p class="prod-price">$18.500</p>
+        <button class="btn-add">Añadir al carrito</button>
+      </div>
+    </div>
+    <div class="prod-card reveal d3">
+      <div class="prod-img">imagen producto</div>
+      <div class="prod-info">
+        <p class="prod-cat">Accesorios</p>
+        <p class="prod-name">V60 Viajero</p>
+        <p class="prod-price">$42.000</p>
+        <button class="btn-add">Añadir al carrito</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tutoriales" id="tutoriales">
+  <div class="tuto-header">
+    <div>
+      <p class="section-label">Aprende con nosotros</p>
+      <h2 class="section-heading on-cream">Últimos Tutoriales</h2>
+    </div>
+    <a href="/blogs/tutoriales" class="btn-outline">Ver todos →</a>
+  </div>
+  <div class="tuto-grid">
+    <div class="tuto-featured reveal">
+      <div class="tuto-thumb">
+        <div class="tuto-thumb-label">Tutorial destacado</div>
+        <div class="play-btn"><div class="play-arrow"></div></div>
+      </div>
+      <div class="tuto-info">
+        <div class="tuto-meta">
+          <span class="tuto-cat">Salud & Café</span>
+          <span class="tuto-date-text">25 Mar 2026</span>
+        </div>
+        <h3 class="tuto-title">El café que tomas cada mañana te está enfermando (y no lo sabías)</h3>
+      </div>
+    </div>
+    <div class="tuto-list reveal d1">
+      <div class="tuto-item">
+        <div class="tuto-item-thumb"><div class="play-btn"><div class="play-arrow"></div></div></div>
+        <div class="tuto-item-info">
+          <p class="tuto-item-date">25 Mar 2026</p>
+          <p class="tuto-item-title">Te enseño el ratio de café perfecto en menos de 4 minutos</p>
+        </div>
+      </div>
+      <div class="tuto-item">
+        <div class="tuto-item-thumb"><div class="play-btn"><div class="play-arrow"></div></div></div>
+        <div class="tuto-item-info">
+          <p class="tuto-item-date">25 Mar 2026</p>
+          <p class="tuto-item-title">Cómo preparar café de especialidad en cada destino</p>
+        </div>
+      </div>
+      <div class="tuto-item">
+        <div class="tuto-item-thumb"><div class="play-btn"><div class="play-arrow"></div></div></div>
+        <div class="tuto-item-info">
+          <p class="tuto-item-date">25 Mar 2026</p>
+          <p class="tuto-item-title">El secreto para hacer la mejor prensa francesa en casa</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tuto-cta">
+    <a href="/blogs/tutoriales" class="btn-fill">Ver todos los tutoriales</a>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="contacto-inner">
+    <div class="reveal">
+      <p class="section-label on-dark">¿Hablamos?</p>
+      <h2 class="section-heading on-dark-color">Contáctanos</h2>
+      <p class="contacto-quote">"No existe el café perfecto, solo existe el café ideal para tu paladar."<br><span style="font-family:'Lora',serif;font-size:0.72rem;font-style:italic;color:rgba(232,222,202,0.18);">— Fundadores de Lattente</span></p>
+      <div class="contacto-info">
+        <div class="contact-detail">
+          <span class="contact-detail-label">WhatsApp</span>
+          <span class="contact-detail-val">+57 (xxx) xxx xxxx</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Email</span>
+          <span class="contact-detail-val">hola@lattente.cafe</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Instagram</span>
+          <span class="contact-detail-val">@lattenteco</span>
+        </div>
+      </div>
+    </div>
+    <form class="reveal d1" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-input" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Apellido</label>
+          <input type="text" class="form-input" placeholder="Tu apellido">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" class="form-input" placeholder="tu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mensaje</label>
+        <textarea class="form-input" placeholder="¿En qué podemos ayudarte?"></textarea>
+      </div>
+      <button class="btn-submit">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo">Lattente</span>
+      <p class="footer-tagline">Pequeños detalles,<br>grandes momentos.</p>
+    </div>
+    <div class="footer-nav-col">
+      <h4>Explorar</h4>
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#tutoriales">Tutoriales</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-newsletter">
+      <h4>Newsletter</h4>
+      <p class="footer-newsletter-headline">Tu dosis semanal de café.</p>
+      <p class="footer-newsletter-sub">Sin spam. Solo café, técnica y cultura.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" class="newsletter-input" placeholder="tu@email.com">
+        <button class="newsletter-btn">Suscribirme</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Lattente. Todos los derechos reservados.</p>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+      <a href="#">WhatsApp</a>
+      <a href="#">Mail</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+function setTab(btn) {
+  document.querySelectorAll('.prod-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
