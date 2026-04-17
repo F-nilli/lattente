@@ -37,6 +37,13 @@ export default async function Productos() {
         ) : (
           <ProductosCarousel collections={collections} />
         )}
+
+        <p className="font-nunito text-[1.05rem] font-medium text-dark/60 mt-8 text-center">
+          Vendemos al por mayor.{' '}
+          <a href="https://wa.me/573246004983" target="_blank" rel="noopener noreferrer" className="font-bold text-red underline hover:text-dark transition-colors duration-200">
+            Escríbenos y conversamos.
+          </a>
+        </p>
       </div>
     </section>
   )
