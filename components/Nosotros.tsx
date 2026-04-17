@@ -41,7 +41,7 @@ export default function Nosotros() {
               El Ritual de lo<br />Intencional
             </h2>
           </div>
-          <p className="font-nunito text-[1rem] font-medium text-white/70 sm:max-w-[320px] leading-[1.7] sm:text-right">
+          <p className="font-nunito text-[1.15rem] font-medium text-white/70 sm:max-w-[340px] leading-[1.7] sm:text-right">
             Una Marca creada para elevar la experiencia cafetera y conectar con el café desde el estilo, el conocimiento y la sensibilidad.
           </p>
         </div>
