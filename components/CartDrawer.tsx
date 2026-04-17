@@ -96,7 +96,7 @@ export default function CartDrawer() {
               </span>
             </div>
             <a
-              href={cart.checkoutUrl}
+              href={cart.checkoutUrl.replace('lattente.cafe', 'lattente-5.myshopify.com')}
               className="w-full bg-red text-white text-center py-4 rounded-full font-nunito text-[1rem] font-bold tracking-[0.06em] uppercase no-underline hover:bg-[#a82219] transition-colors duration-200"
             >
               Finalizar compra →
