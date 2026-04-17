@@ -101,6 +101,7 @@ export default function CartDrawer() {
             >
               Finalizar compra →
             </a>
+            <p className="text-[0.7rem] text-dark/30 break-all">{cart.checkoutUrl}</p>
             <button onClick={closeCart} className="font-nunito text-[0.95rem] font-semibold text-dark/40 hover:text-dark transition-colors text-center">
               Seguir comprando
             </button>
