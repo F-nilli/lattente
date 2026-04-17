@@ -72,7 +72,7 @@ export default function Servicios() {
               <p className="font-nunito text-[0.98rem] font-semibold text-brown mb-[1.1rem] pb-[1.1rem] border-b border-brown/10">
                 {svc.sub}
               </p>
-              <p className="font-nunito text-[1.05rem] leading-[1.75] text-dark/60 flex-1 mb-6">{svc.body}</p>
+              <p className="font-nunito text-[1.08rem] leading-[1.7] text-dark/85 flex-1 mb-6">{svc.body}</p>
               <div className="flex flex-wrap gap-[0.4rem]">
                 {svc.tags.map(tag => (
                   <span
