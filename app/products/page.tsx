@@ -13,7 +13,7 @@ export default async function ProductsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen py-16 sm:py-20 lg:py-[5.5rem]" style={{ background: 'linear-gradient(150deg, #EDD9B8 0%, #E0CCAD 45%, #D4BE9E 100%)' }}>
+      <main className="min-h-screen py-16 sm:py-20 lg:py-[5.5rem]" style={{ background: 'linear-gradient(160deg, #F2E4CA 0%, #E8D4B0 30%, #DECA9E 60%, #D0B88C 100%)' }}>
         <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
           <div className="mb-10 sm:mb-12">
             <p className="font-nunito text-[1.1rem] font-semibold text-[#D05A3A] mb-2 tracking-[0.05em] uppercase">
@@ -32,7 +32,7 @@ export default async function ProductsPage() {
         </div>
       </main>
 
-      <div className="relative overflow-hidden" style={{ background: 'linear-gradient(150deg, #EDD9B8 0%, #E0CCAD 45%, #D4BE9E 100%)' }}>
+      <div className="relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #D0B88C 0%, #C8AE84 50%, #BFA07A 100%)' }}>
         <div className="py-10 sm:py-12 flex flex-col sm:flex-row items-center justify-center gap-8 px-6">
           {/* Copy */}
           <div className="max-w-[420px]">
