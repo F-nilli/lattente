@@ -96,12 +96,11 @@ export default function CartDrawer() {
               </span>
             </div>
             <a
-              href={cart.checkoutUrl.replace('lattente.cafe', 'lattente-5.myshopify.com')}
+              href={cart.checkoutUrl.replace(/https?:\/\/[^/]+/, 'https://lattente-5.myshopify.com')}
               className="w-full bg-red text-white text-center py-4 rounded-full font-nunito text-[1rem] font-bold tracking-[0.06em] uppercase no-underline hover:bg-[#a82219] transition-colors duration-200"
             >
               Finalizar compra →
             </a>
-            <p className="text-[0.7rem] text-dark/30 break-all">{cart.checkoutUrl}</p>
             <button onClick={closeCart} className="font-nunito text-[0.95rem] font-semibold text-dark/40 hover:text-dark transition-colors text-center">
               Seguir comprando
             </button>
