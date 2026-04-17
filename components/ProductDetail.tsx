@@ -18,6 +18,7 @@ export default function ProductDetail({ product }: { product: ShopifyProductDeta
 
   const hasOptions = product.options.some(o => !(o.values.length === 1 && o.values[0] === 'Default Title'))
   const images = product.images.nodes
+  const isCamisas = product.collections.nodes.some(c => c.title === 'Camisas')
 
   const prev = () => setActiveImage(i => (i - 1 + images.length) % images.length)
   const next = () => setActiveImage(i => (i + 1) % images.length)
@@ -26,13 +27,13 @@ export default function ProductDetail({ product }: { product: ShopifyProductDeta
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       {/* Images */}
       <div className="flex flex-col gap-3">
-        <div className="relative w-full aspect-square rounded-[1.4rem] overflow-hidden bg-[#F5EFE4]">
+        <div className={`relative w-full rounded-[1.4rem] overflow-hidden bg-[#F5EFE4] ${isCamisas ? 'aspect-[9/16]' : 'aspect-square'}`}>
           {images[activeImage] && (
             <Image
               src={images[activeImage].url}
               alt={images[activeImage].altText ?? product.title}
               fill
-              className="object-cover"
+              className={isCamisas ? 'object-contain' : 'object-cover'}
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
             />
@@ -67,7 +68,7 @@ export default function ProductDetail({ product }: { product: ShopifyProductDeta
               <button
                 key={i}
                 onClick={() => setActiveImage(i)}
-                className={`relative w-[72px] h-[72px] shrink-0 rounded-[0.7rem] overflow-hidden border-2 transition-all duration-200 ${i === activeImage ? 'border-red' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                className={`relative shrink-0 rounded-[0.7rem] overflow-hidden border-2 transition-all duration-200 ${isCamisas ? 'w-[48px] h-[72px]' : 'w-[72px] h-[72px]'} ${i === activeImage ? 'border-red' : 'border-transparent opacity-60 hover:opacity-100'}`}
               >
                 <Image src={img.url} alt={img.altText ?? ''} fill className="object-cover" sizes="72px" />
               </button>

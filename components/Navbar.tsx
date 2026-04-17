@@ -41,7 +41,7 @@ export default function Navbar() {
           {(['Servicios', 'Productos', 'Nosotros', 'Tutoriales'] as const).map(item => (
             <li key={item}>
               <Link
-                href={item === 'Productos' ? '/products' : `#${item.toLowerCase()}`}
+                href={item === 'Productos' ? '/products' : `/#${item.toLowerCase()}`}
                 className="font-fraunces text-[1.18rem] font-medium text-dark no-underline tracking-[0.02em] hover:text-red transition-colors duration-200"
               >
                 {item}
@@ -50,7 +50,7 @@ export default function Navbar() {
           ))}
           <li>
             <Link
-              href="#contacto"
+              href="/#contacto"
               className="font-nunito text-[1.18rem] font-bold tracking-[0.08em] uppercase bg-red text-white px-6 py-[0.6rem] rounded-full hover:bg-dark transition-colors duration-200 no-underline"
             >
               Contacto
@@ -114,7 +114,7 @@ export default function Navbar() {
             {['Servicios', 'Productos', 'Nosotros', 'Tutoriales', 'Contacto'].map(item => (
               <li key={item}>
                 <Link
-                  href={item === 'Productos' ? '/products' : `#${item.toLowerCase()}`}
+                  href={item === 'Productos' ? '/products' : `/#${item.toLowerCase()}`}
                   onClick={close}
                   className="font-fraunces text-[1.3rem] font-medium text-dark no-underline hover:text-red transition-colors duration-200"
                 >
@@ -125,7 +125,7 @@ export default function Navbar() {
           </ul>
 
           <Link
-            href="#contacto"
+            href="/#contacto"
             onClick={close}
             className="font-nunito text-[1.08rem] font-bold tracking-[0.08em] uppercase bg-red text-white text-center py-[0.85rem] rounded-full hover:bg-dark transition-colors duration-200 no-underline"
           >

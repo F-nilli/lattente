@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { ShopifyProduct, ShopifyCollection, formatPrice } from '@/lib/shopify'
 import { useCart } from '@/context/CartContext'
 
-function ProductCard({ product }: { product: ShopifyProduct }) {
+function ProductCard({ product, isCamisas }: { product: ShopifyProduct; isCamisas?: boolean }) {
   const image = product.images.nodes[0]
   const price = formatPrice(
     product.priceRange.minVariantPrice.amount,
@@ -20,7 +20,7 @@ function ProductCard({ product }: { product: ShopifyProduct }) {
       href={`/products/${product.handle}`}
       className="bg-[#F5EFE4] rounded-[1.1rem] overflow-hidden hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)] transition-all duration-300 cursor-pointer flex flex-col no-underline"
     >
-      <div className="w-full h-[180px] sm:h-[220px] rounded-[0.85rem] m-3 mb-0 overflow-hidden relative" style={{ width: 'calc(100% - 1.5rem)' }}>
+      <div className={`rounded-[0.85rem] m-3 mb-0 overflow-hidden relative ${isCamisas ? 'aspect-[9/16]' : 'h-[180px] sm:h-[220px]'}`} style={{ width: 'calc(100% - 1.5rem)' }}>
         {image ? (
           <Image src={image.url} alt={image.altText ?? product.title} fill className="object-cover" sizes="(max-width: 640px) 50vw, 25vw" />
         ) : (
@@ -95,7 +95,7 @@ export default function ProductosGrid({ collections }: Props) {
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
           {filtered.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} isCamisas={activeTab === 'Camisas'} />
           ))}
         </div>
       )}
